@@ -1,0 +1,66 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Frontend (Vite)
+dist/
+.env.local
+.env.*.local
+
+# Backend (Express)
+dev.db
+dev.db-journal
+public/uploads/
+
+# Docker
+docker-compose.override.yml
+
+# IDE & OS
+.vscode/
+.idea/
+*.DS_Store
+.AppleDouble
+.LSOverride
+# Log files
+*.log
+logs
+*.log.*
+
+# Temporary files
+*.tmp
+*.swp
+*~
+.npm/
+.yarn/
+.pnpm-store/
+.cache/
+coverage/
+build/
+.nyc_output/
+.eslintcache
+.stylelintcache
+.prettiercache
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+.env
+.env.development
+.env.production
+.env.test
+
+# Gemini
+.gemini/
+*.gemini.md
+.gemini.history
+.gemini.log
+.gemini.lock
+.gemini.cache
+.gemini.tmp
+.gemini.bak
