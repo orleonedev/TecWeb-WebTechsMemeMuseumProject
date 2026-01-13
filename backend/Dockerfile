@@ -7,6 +7,9 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json (or yarn.lock)
 COPY package*.json ./
 
+# Copy the prisma directory before installing dependencies
+COPY prisma ./prisma
+
 # Install dependencies
 RUN npm install
 

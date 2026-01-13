@@ -15,7 +15,8 @@ dist/
 # Backend (Express)
 dev.db
 dev.db-journal
-public/uploads/
+backend/public/uploads/*
+!backend/public/uploads/seed-meme.svg
 
 # Docker
 docker-compose.override.yml
