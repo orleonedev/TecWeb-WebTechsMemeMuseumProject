@@ -3,19 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import { castVote } from '../api/memes';
 import { UPLOADS_BASE_URL } from '../../../config';
+import { MemeDto } from '../../../shared/types';
 
 interface MemeCardProps {
-  meme: {
-    id: number;
-    title: string;
-    imageUrl: string;
-    description?: string;
-    user: { username: string };
-    tags: { name: string }[];
-    _count: { votes: number; comments: number };
-    votes: { userId: number; value: number }[];
-    score: number;
-  };
+  meme: MemeDto;
 }
 
 const MemeCard: React.FC<MemeCardProps> = ({ meme }) => {

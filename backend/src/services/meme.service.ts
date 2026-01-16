@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import prisma from '../lib/prisma';
+import { SORT_BY, SORT_ORDER, SortBy, SortOrder } from '../shared/constants';
 
 export const createMeme = async (title: string, imageUrl: string, userId: number, tags: string[], description?: string) => {
   const lowerTags = tags.map(tag => tag.toLowerCase());
@@ -30,11 +31,11 @@ export const findAllMemes = async (options: {
   limit?: number;
   tag?: string;
   search?: string;
-  sortBy?: 'date' | 'popularity';
-  order?: 'asc' | 'desc';
+  sortBy?: SortBy;
+  order?: SortOrder;
   userId?: number;
 }) => {
-  const { page = 1, limit = 10, tag, search, sortBy = 'date', order = 'desc', userId } = options;
+  const { page = 1, limit = 10, tag, search, sortBy = SORT_BY.DATE, order = SORT_ORDER.DESC, userId } = options;
   const skip = (page - 1) * limit;
 
   const where: Prisma.MemeWhereInput = {};
@@ -67,9 +68,9 @@ export const findAllMemes = async (options: {
   }
 
   const orderBy: Prisma.MemeOrderByWithRelationInput = {};
-  if (sortBy === 'date') {
+  if (sortBy === SORT_BY.DATE) {
     orderBy.createdAt = order;
-  } else if (sortBy === 'popularity') {
+  } else if (sortBy === SORT_BY.POPULARITY) {
     orderBy.score = order;
   }
 

@@ -2,6 +2,7 @@ import { Response, NextFunction, Request } from 'express';
 import * as memeService from '../services/meme.service';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { parse } from 'path';
+import { SortBy, SortOrder } from '../shared/constants';
 
 export const createMeme = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
@@ -44,9 +45,9 @@ export const getAllMemes = async (req: Request, res: Response, next: NextFunctio
       limit: limit ? parseInt(limit as string, 10) : 10,
       tag: tag as string,
       search: search as string,
-      sortBy: sortBy as 'date' | 'popularity',
-      order: order as 'asc' | 'desc',
-      userId: parseInt(userId as string, 10),
+      sortBy: sortBy as SortBy,
+      order: order as SortOrder,
+      userId: userId ? parseInt(userId as string, 10) : undefined,
     };
 
     const result = await memeService.findAllMemes(options);

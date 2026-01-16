@@ -1,12 +1,13 @@
 import React from 'react';
 import MemeCard from './MemeCard';
+import { MemeDto } from '../../../shared/types';
 
 interface MemeGridProps {
-  memes: any[];
+  memes: MemeDto[];
 }
 
 const MemeGrid: React.FC<MemeGridProps> = ({ memes }) => {
-  if (memes.length === 0) {
+  if (!memes || memes.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-base-content/50">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 mb-4 opacity-20">

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../../../config';
+import { SortBy, SortOrder } from '../../../shared/constants';
+import { MemeDto, MemesResponse } from '../../../shared/types';
 
 const API_URL = `${API_BASE_URL}/api/memes`;
 
@@ -8,28 +10,28 @@ export interface MemeQueryParams {
   limit?: number;
   tag?: string;
   search?: string;
-  sortBy?: 'date' | 'popularity';
-  order?: 'asc' | 'desc';
+  sortBy?: SortBy;
+  order?: SortOrder;
   userId?: string;
 }
 
-export const getMemes = async (params: MemeQueryParams = {}) => {
-  const response = await axios.get(API_URL, { params });
+export const getMemes = async (params: MemeQueryParams = {}): Promise<MemesResponse> => {
+  const response = await axios.get<MemesResponse>(API_URL, { params });
   return response.data;
 };
 
-export const getMemeById = async (id: string) => {
-  const response = await axios.get(`${API_URL}/${id}`);
+export const getMemeById = async (id: string): Promise<MemeDto> => {
+  const response = await axios.get<MemeDto>(`${API_URL}/${id}`);
   return response.data;
 };
 
-export const getMemeOfTheDay = async () => {
-  const response = await axios.get(`${API_URL}/day`);
+export const getMemeOfTheDay = async (): Promise<MemeDto> => {
+  const response = await axios.get<MemeDto>(`${API_URL}/day`);
   return response.data;
 };
 
-export const createMeme = async (formData: FormData, token: string) => {
-  const response = await axios.post(API_URL, formData, {
+export const createMeme = async (formData: FormData, token: string): Promise<MemeDto> => {
+  const response = await axios.post<MemeDto>(API_URL, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,

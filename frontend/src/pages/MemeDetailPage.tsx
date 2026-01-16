@@ -132,13 +132,13 @@ const MemeDetailPage: React.FC = () => {
             </div>
             
             <div className="flex-1 overflow-y-auto p-6 space-y-4 max-h-[500px]">
-              {meme.comments.length === 0 ? (
+              {(!meme.comments || meme.comments.length === 0) ? (
                 <div className="text-center py-10 opacity-40">
                   <p>No comments yet.</p>
                   <p className="text-sm">Be the first to share your thoughts!</p>
                 </div>
               ) : (
-                meme.comments.map((comment: any) => (
+                (meme.comments || []).map((comment: any) => (
                   <div key={comment.id} className="bg-base-200/50 p-4 rounded-xl">
                     <div className="flex justify-between items-start mb-2">
                       <span className="font-bold text-sm text-primary">{comment.user.username}</span>

@@ -197,10 +197,10 @@ const HomePage: React.FC = () => {
         </div>
       ) : (
         <>
-          <MemeGrid memes={data.memes} />
+          <MemeGrid memes={data?.memes || []} />
           
           {/* Pagination */}
-          {data.pagination.totalPages > 1 && (
+          {data?.pagination && data.pagination.totalPages > 1 && (
             <div className="flex justify-center mt-12">
               <div className="join border border-base-300 shadow-sm">
                 <button 
