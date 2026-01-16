@@ -12,6 +12,7 @@ services:
       - sqlite_data:/db
     environment:
       - DATABASE_URL=file:/db/dev.db
+      - CLIENT_ORIGIN=${CLIENT_ORIGIN:-http://localhost:5173}
     command: sh -c "npx prisma db push && npx prisma db seed && npm run dev"
 
   frontend:
