@@ -22,7 +22,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const { data: user, isSuccess } = useQuery({
     queryKey: ['me'],
-    queryFn: () => api.getMe(token!),
+    queryFn: () => api.getMe(),
     enabled: !!token,
   });
 
@@ -37,10 +37,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [token]);
 
   const login = (newToken: string) => {
+    localStorage.setItem('token', newToken);
     setToken(newToken);
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setToken(null);
   };
 

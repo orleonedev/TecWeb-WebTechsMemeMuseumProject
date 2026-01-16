@@ -19,14 +19,14 @@ const MemeDetailPage: React.FC = () => {
   });
 
   const voteMutation = useMutation({
-    mutationFn: (value: number) => castVote(parseInt(id!, 10), value, localStorage.getItem('token')!),
+    mutationFn: (value: number) => castVote(parseInt(id!, 10), value),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['meme', id] });
     },
   });
 
   const commentMutation = useMutation({
-    mutationFn: (text: string) => addComment(parseInt(id!, 10), text, localStorage.getItem('token')!),
+    mutationFn: (text: string) => addComment(parseInt(id!, 10), text),
     onSuccess: () => {
       setCommentText('');
       queryClient.invalidateQueries({ queryKey: ['meme', id] });

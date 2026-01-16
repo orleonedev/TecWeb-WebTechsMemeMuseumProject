@@ -17,7 +17,7 @@ const UploadForm: React.FC = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (formData: FormData) => createMeme(formData, localStorage.getItem('token')!),
+    mutationFn: (formData: FormData) => createMeme(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['memes'] });
       navigate('/'); 

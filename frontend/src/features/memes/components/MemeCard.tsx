@@ -1,69 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../../contexts/AuthContext';
-import { castVote } from '../api/memes';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { UPLOADS_BASE_URL } from '../../../config';
 import { MemeDto } from '../../../shared/types';
+import { useVote } from '../hooks/useVote';
 
 interface MemeCardProps {
   meme: MemeDto;
 }
 
 const MemeCard: React.FC<MemeCardProps> = ({ meme }) => {
-  const { user, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const initialScore = meme.score;
-  const initialUserVote = user && meme.votes ? meme.votes.find(v => v.userId === user.id)?.value || 0 : 0;
-
-  const [score, setScore] = useState(initialScore);
-  const [userVote, setUserVote] = useState(initialUserVote);
-  const [isVoting, setIsVoting] = useState(false);
-
-  useEffect(() => {
-    setScore(meme.score);
-    setUserVote(user && meme.votes ? meme.votes.find(v => v.userId === user.id)?.value || 0 : 0);
-  }, [meme.score, meme.votes, user]);
-
-  const handleVote = async (value: number) => {
-    if (!isAuthenticated) {
-      navigate('/auth'); 
-      return;
-    }
-
-    if (isVoting) return;
-
-    const previousScore = score;
-    const previousUserVote = userVote;
-    
-    let newScore = score;
-    let newUserVote = value;
-
-    if (userVote === value) {
-      newScore -= value;
-      newUserVote = 0;
-    } else {
-      newScore = score - userVote + value;
-    }
-
-    setScore(newScore);
-    setUserVote(newUserVote);
-    setIsVoting(true);
-
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        await castVote(meme.id, value, token);
-      }
-    } catch (error) {
-      setScore(previousScore);
-      setUserVote(previousUserVote);
-      console.error('Failed to vote:', error);
-    } finally {
-      setIsVoting(false);
-    }
-  };
+  const { score, userVote, isVoting, handleVote } = useVote(meme);
   
   return (
     <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-base-200 overflow-hidden group">

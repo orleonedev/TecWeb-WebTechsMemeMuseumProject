@@ -18,7 +18,7 @@ const AccountPage: React.FC = () => {
   });
 
   const deleteUserMutation = useMutation({
-    mutationFn: (userId: string) => deleteUser(userId, localStorage.getItem('token')!),
+    mutationFn: (userId: string) => deleteUser(userId),
     onSuccess: () => {
       logout();
       queryClient.invalidateQueries();
