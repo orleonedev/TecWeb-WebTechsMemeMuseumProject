@@ -15,7 +15,7 @@
 
 ## 1. Descrizione del Progetto
 
-**MemeMuseum** è una Single Page Application (SPA) per la condivisione di meme. Supporta navigazione pubblica e interazioni (upload, voti, commenti) per utenti autenticati.
+**MemeMuseum** è una Single Page Application (SPA) per la condivisione di meme. Supporta visualizzazione e ricerca di meme per utenti non autenticati e interazioni in aggiunta (upload, voti, commenti) per quelli autenticati.
 L'architettura separa rigorosamente **Frontend** (React) e **Backend** (Express REST API), orchestrati via **Docker Compose** per garantire un ambiente riproducibile.
 
 ## 2. Tecnologie Utilizzate
@@ -41,5 +41,5 @@ L'architettura separa rigorosamente **Frontend** (React) e **Backend** (Express 
 ### Infrastruttura & Testing
 
 * **Docker & Docker Compose:** Containerizzazione dei servizi (Frontend, Backend) e gestione volumi.
-* **Nginx:** Web server leggero per servire i file statici del frontend in produzione.
+* **Nginx:** Web server leggero per servire i file statici del frontend.
 * **Cypress:** Framework per test End-to-End automatizzati.
