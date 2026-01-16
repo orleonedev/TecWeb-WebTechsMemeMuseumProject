@@ -43,3 +43,15 @@ L'architettura separa rigorosamente **Frontend** (React) e **Backend** (Express 
 * **Docker & Docker Compose:** Containerizzazione dei servizi (Frontend, Backend) e gestione volumi.
 * **Nginx:** Web server leggero per servire i file statici del frontend.
 * **Cypress:** Framework per test End-to-End automatizzati.
+
+## 3. Organizzazione del Codice e Pattern
+
+Il progetto adotta diverse best practices per garantire pulizia e manutenibilità:
+
+* **Shared Types:** Le interfacce TypeScript (DTO) e le costanti (es. `SortOrder`) sono condivise in `/src/shared` sia nel frontend che nel backend, garantendo coerenza nei contratti dati.
+* **Backend Utilities:**
+    * `asyncHandler`: Un wrapper per i controller che gestisce automaticamente le eccezioni asincrone, eliminando la necessità di blocchi `try-catch` ripetitivi.
+    * Separazione netta tra Controller (gestione HTTP) e Service (logica di business).
+* **Frontend Architecture:**
+    * **Axios Interceptor:** Un'istanza centralizzata di Axios inietta automaticamente il token JWT in tutte le richieste, semplificando le chiamate API.
+    * **Custom Hooks:** Logiche complesse (es. la gestione del voto in `useVote`) sono estratte dai componenti UI per migliorare la leggibilità.

@@ -32,16 +32,23 @@ The project relies on a strictly defined architecture:
 - **Framework:** Express.js (TypeScript)
 - **Database:** SQLite (`dev.db`)
 - **ORM:** Prisma
-- **Auth:** JWT (JSON Web Tokens)
+- **Auth:** JWT (JSON Web Tokens) & **bcryptjs**
 - **File Upload:** Multer (Local storage in `./public/uploads`)
 
 ### Frontend (`/frontend`)
 
 - **Framework:** React (Vite) + TypeScript
 - **Styling:** Tailwind CSS + DaisyUI
-- **State Management:** React Query (Server state) + Context API (Auth state)
+- **Data Fetching:** **Axios** + React Query (TanStack Query)
+- **State Management:** Context API (Auth state)
 - **Routing:** React Router DOM
 - **Testing:** Cypress (E2E)
+
+### Infrastructure
+
+- **Orchestration:** Docker Compose
+- **Web Server:** Nginx (for serving the production frontend)
+- **Persistence:** Docker Volumes for database and uploads
 
 ## 🚀 Getting Started (Docker - Recommended)
 
@@ -128,6 +135,15 @@ npm run dev
 
 *The frontend will run on `http://localhost:5173`.*
 
+## 🧩 Key Architectural Patterns
+
+The project implements several clean-code patterns to ensure maintainability:
+
+- **Shared Types:** TypeScript DTOs and constants are shared between Frontend and Backend in `/src/shared`.
+- **Async Error Handling:** Uses a centralized `asyncHandler` wrapper in the backend to eliminate repetitive try-catch blocks.
+- **Centralized API Client:** A configured Axios instance with interceptors handles JWT token injection automatically.
+- **Logic Extraction:** Complex UI logic (e.g., voting) is moved from components into custom hooks like `useVote`.
+
 ## 📂 Project Structure
 
 ```text
@@ -137,15 +153,19 @@ npm run dev
 │   ├── src/
 │   │   ├── controllers/  # Request handling
 │   │   ├── services/     # Business logic & DB access
+│   │   ├── shared/       # Shared types & constants
 │   │   ├── routes/       # API Routes definition
+│   │   ├── lib/          # Utilities (AsyncHandler, etc.)
 │   │   └── app.ts        # Express setup
 │   ├── prisma/           # Database schema
 │   └── public/uploads/   # Meme image storage
 └── frontend/             # React App
     ├── src/
     │   ├── features/     # Logic grouped by feature (auth, memes)
+    │   ├── shared/       # Shared types & constants
     │   ├── components/   # Shared UI components
     │   ├── pages/        # Page assemblers
+    │   ├── lib/          # Utilities (Axios config)
     │   └── layouts/      # MainLayout, Navbar
     └── cypress/          # End-to-End tests
 ```
